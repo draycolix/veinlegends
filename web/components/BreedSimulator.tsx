@@ -7,7 +7,6 @@ import {
   breed,
   getNamedHeroes,
   generateGenericPool,
-  gachaPull,
   BLOODLINES,
   RARITY_CONFIG,
 } from '@/lib/characters';
@@ -31,10 +30,37 @@ export default function BreedSimulator() {
   const [stage, setStage] = useState<BreedStage>('idle');
   const [totalBurned, setTotalBurned] = useState(0);
   const [totalBreeds, setTotalBreeds] = useState(0);
+  const [isSimulation, setIsSimulation] = useState(false);
 
   const handleGachaPull = () => {
-    const newChar = gachaPull();
-    setPool((prev) => [...prev, newChar]);
+    // Simulate breed: pick 2 random breedable parents, show offspring preview
+    // Does NOT modify pool — just shows what a breed WOULD produce
+    const breedable = pool.filter((c) => {
+      if (c.generation >= 7) return false;
+      const genLimits = [7, 5, 4, 3, 2, 1, 1];
+      return c.breedCount < Math.min(RARITY_CONFIG[c.rarity].breedLimit, genLimits[Math.min(c.generation, 6)]);
+    });
+    if (breedable.length < 2) { setError('Need 2 breedable characters for simulation.'); return; }
+    
+    // Pick 2 random distinct parents
+    const shuffled = [...breedable].sort(() => Math.random() - 0.5);
+    const a = shuffled[0];
+    const b = shuffled[1];
+    
+    setParentA(a);
+    setParentB(b);
+    setError(null);
+    const res = breed(a, b);
+    if ('error' in res) { setError(res.error); return; }
+    
+    setStage('burning');
+    setResult(res);
+    setIsSimulation(true);
+    setTimeout(() => setStage('revealing'), 1500);
+    setTimeout(() => {
+      // Show preview but DON'T modify pool
+      setStage('done');
+    }, 3000);
   };
 
   const maxBreeds = (c: Character) => {
@@ -70,6 +96,7 @@ export default function BreedSimulator() {
     // Stage 1: BURN parents (animation)
     setStage('burning');
     setResult(res);
+    setIsSimulation(false);
 
     // Stage 2: GACHA REVEAL after burn
     setTimeout(() => setStage('revealing'), 1500);
@@ -354,11 +381,21 @@ export default function BreedSimulator() {
                     transition={{ delay: 0.3 }}
                     className="glass rounded-full px-4 py-1 mb-4 flex items-center gap-2 text-xs"
                   >
-                    <span className="text-red-400">-2 {result.burnedParents[0].name}, {result.burnedParents[1].name}</span>
-                    <span className="text-dark-500">→</span>
-                    <span className="text-green-400 font-bold">+2 New Heroes</span>
-                    <span className="text-dark-500">=</span>
-                    <span className="text-blue-400 font-bold">Net Zero</span>
+                    {isSimulation ? (
+                      <>
+                        <span className="text-purple-400">🎴 Simulation</span>
+                        <span className="text-dark-500">→</span>
+                        <span className="text-dark-300">Pool unchanged</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-red-400">-2 {result.burnedParents[0].name}, {result.burnedParents[1].name}</span>
+                        <span className="text-dark-500">→</span>
+                        <span className="text-green-400 font-bold">+2 New Heroes</span>
+                        <span className="text-dark-500">=</span>
+                        <span className="text-blue-400 font-bold">Net Zero</span>
+                      </>
+                    )}
                   </motion.div>
 
                   <div className="text-center mb-4">
@@ -418,13 +455,10 @@ export default function BreedSimulator() {
               onClick={handleGachaPull}
               className="px-5 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-dark-900 rounded-xl font-bold text-sm shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 transition-all"
             >
-              🎴 Pull Gacha
+              🎴 Simulate Breed
             </motion.button>
             <div className="flex gap-3 text-[11px] text-dark-500">
-              <span className="text-gray-400">⬜ 50%</span>
-              <span className="text-blue-400">🟦 30%</span>
-              <span className="text-purple-400">🟪 15%</span>
-              <span className="text-yellow-400">🟨 5%</span>
+              <span className="text-purple-400">Pick 2 random → preview</span>
             </div>
           </div>
 

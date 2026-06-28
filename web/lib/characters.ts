@@ -533,6 +533,48 @@ function generateGenericCharacter(bloodline: Bloodline, rarity: Rarity): Charact
   const prefix = names.prefixes[Math.floor(Math.random() * names.prefixes.length)];
   const title = names.titles[Math.floor(Math.random() * names.titles.length)];
 
+  // Default bloodline lore for generic warriors
+  const defaultLore: Record<Bloodline, { appearance: string; backstory: string; personality: string; signature: string }> = {
+    Delver: {
+      appearance: 'Penambang tangguh dengan pakaian kulit bertambal. Mata selalu menyipit — terbiasa dengan kegelapan gua. Tangan penuh kapalan dari bertahun-tahun menggenggam beliung.',
+      backstory: 'Salah satu dari ribuan penambang yang mencari Veinstone di Hollow Deeps. Sebagian besar tidak akan pernah menemukan Heartvein — tapi mereka tetap menggali, karena setiap bongkahan Veinstone bisa mengubah hidup keluarganya.',
+      personality: 'Sabar dan tekun. Lebih suka bekerja sendiri di gua daripada bicara dengan orang. Tapi sangat loyal pada sesama penambang.',
+      signature: 'Vein Sense (basic): Bisa merasakan getaran Vein dalam radius 20m.',
+    },
+    Ironblood: {
+      appearance: 'Prajurit dengan armor besi penuh goresan. Wajah penuh bekas luka — setiap luka adalah cerita pertempuran. Kedua tangan selalu siap di gagang pedang.',
+      backstory: 'Prajurit Bloodline yang selamat dari perang antar-Bloodline. Sekarang menjadi tentara bayaran, menjual pedangnya ke pihak dengan bayaran tertinggi.',
+      personality: 'Disiplin dan agresif dalam pertempuran. Di luar perang, pendiam dan hanya bicara pada sesama prajurit.',
+      signature: 'Battle Rush: Serangan pertama selalu 20% lebih cepat dari musuh.',
+    },
+    Forgeborn: {
+      appearance: 'Pandai besi dengan apron kulit tebal dan tangan hitam jelaga. Matanya selalu menyala seperti bara — efek samping bertahun-tahun bekerja di dekat Vein-fire.',
+      backstory: 'Magang di salah satu bengkel Heartvein Forge sebelum dihancurkan. Sekarang berkelana mencari bahan terbaik untuk menempa senjata legendaris.',
+      personality: 'Kalem dan filosofis — bicara pelan tapi penuh makna. Tidak suka kekerasan, tapi bisa sangat mematikan saat terpaksa.',
+      signature: 'Vein Burn (basic): Pukulan palunya meninggalkan bekas bakar di armor musuh.',
+    },
+    Shadowvein: {
+      appearance: 'Sosok kurus berjubah gelap, selalu bergerak di pinggir bayangan. Matanya terbiasa melihat dalam gelap — pantulan cahaya sekecil apapun bisa dia deteksi.',
+      backstory: 'Mantan mata-mata yang dikhianati kliennya. Sekarang hidup di bayangan, mengambil pekerjaan yang tidak disentuh orang lain — dan tidak pernah gagal.',
+      personality: 'Hampir tidak pernah bicara. Ekspresi wajah tidak terbaca. Tapi anehnya, dia tidak pernah mengkhianati kontrak.',
+      signature: 'Shadow Step: Bisa bergerak 2× lebih cepat di area gelap.',
+    },
+    Stonewarden: {
+      appearance: 'Tubuh kekar seperti batu — hasil dari ritual Stonewarden yang memperkeras kulit. Memakai perisai hampir setinggi badannya, dihiasi ukiran kuno.',
+      backstory: 'Bekas penjaga gerbang kota perbatasan. Tidak pernah sekalipun musuh berhasil melewatinya. Sekarang menjual jasanya sebagai pelindung kafilah.',
+      personality: 'Pendiam, tenang, dan sangat keras kepala. Tidak mundur sekalipun lawannya 10 kali lebih banyak.',
+      signature: 'Guardian Stance: Mengurangi 15% damage dari serangan frontal.',
+    },
+    Veinbender: {
+      appearance: 'Bertubuh ramping dengan jubah panjang berwarna hijau zamrud. Matanya sedikit berpendar — tanda seseorang yang bisa melihat aliran Vein dengan mata telanjang.',
+      backstory: 'Siswa dari akademi Veinbender yang tidak menyelesaikan studinya — terlalu penasaran dengan eksperimen terlarang. Sekarang berkelana mencari pengetahuan yang disembunyikan.',
+      personality: 'Penasaran, kadang terlalu ambisius. Suka bereksperimen — kadang berhasil, kadang meledak.',
+      signature: 'Vein Pulse: Bisa mendeteksi kualitas Vein hanya dengan menyentuh permukaannya.',
+    },
+  };
+
+  const lore = defaultLore[bloodline];
+
   return {
     id: `generic_${++genericIdCounter}`,
     name: `${prefix} ${title}`,
@@ -541,6 +583,7 @@ function generateGenericCharacter(bloodline: Bloodline, rarity: Rarity): Charact
     generation: 0,
     stats,
     breedCount: 0,
+    ...lore,
   };
 }
 
