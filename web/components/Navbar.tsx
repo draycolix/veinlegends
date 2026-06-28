@@ -6,10 +6,7 @@ import { motion } from 'framer-motion';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 const navLinks = [
-  { label: 'Mining', href: '/mining' },
-  { label: 'Battle', href: '/battle' },
-  { label: 'Tournament', href: '/tournament' },
-  { label: 'Quests', href: '/quests' },
+  { label: 'Arena', href: '/arena' },
   { label: 'Whitepaper', href: '/docs/WHITEPAPER.md' },
 ];
 
