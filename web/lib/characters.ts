@@ -38,11 +38,11 @@ export interface Character {
 }
 
 export interface BreedResult {
-  offspring: Character;
+  offsprings: [Character, Character]; // 2 born (supply-neutral)
   burnedParents: [Character, Character]; // both parents destroyed (burn-to-breed)
   cost: { vein: number; ore: number };
   burn: number; // $VEIN burned
-  supplyChange: number; // -1 (2 burned, 1 created = net -1)
+  supplyChange: number; // 0 (2 burned, 2 born = net zero)
 }
 
 // ============================================================
@@ -254,9 +254,10 @@ function getMaxBreeds(char: Character): number {
 }
 
 // ============================================================
-// MAIN BREED FUNCTION — BURN-TO-BREED (Destructive Breeding)
-// 2 parents are BURNED (destroyed) → 1 offspring is born
-// Net supply: -1 per breed (prevents NFT oversupply)
+// MAIN BREED FUNCTION — BURN-TO-BREED (Destructive, Supply-Neutral)
+// 2 parents BURNED → 2 offspring BORN (net supply: 0)
+// Rarity: gacha roll for EACH offspring independently
+// Bloodline: each offspring gets 50/50 from either parent
 // ============================================================
 
 let idCounter = Date.now();
@@ -271,24 +272,52 @@ export function breed(parentA: Character, parentB: Character): BreedResult | { e
   if (parentB.breedCount >= getMaxBreeds(parentB))
     return { error: `${parentB.name} has reached max breeds (${getMaxBreeds(parentB)}).` };
 
-  // Determine bloodline (50/50 from parents)
+  const generation = Math.max(parentA.generation, parentB.generation) + 1;
+  const costGen = Math.max(parentA.generation, parentB.generation);
+  const cost = getBreedCost(costGen);
+
+  // Generate TWO offsprings (each with independent gacha rolls)
+  const offsprings: [Character, Character] = [
+    generateOffspring(parentA, parentB, generation),
+    generateOffspring(parentA, parentB, generation),
+  ];
+
+  return {
+    offsprings,
+    burnedParents: [parentA, parentB],
+    cost,
+    burn: cost.burn,
+    supplyChange: 0, // 2 burned — 2 born = net zero
+  };
+}
+
+function generateOffspring(parentA: Character, parentB: Character, generation: number): Character {
+  // Bloodline: 50/50 from either parent
   const bloodline: Bloodline =
     Math.random() < 0.5 ? parentA.bloodline : parentB.bloodline;
 
-  // GACHA RARITY ROLL — parents are burning, so odds are slightly better
+  // Gacha rarity roll
   const rarity = rollRarity(parentA, parentB);
-
-  // Calculate generation (max of parents + 1)
-  const generation = Math.max(parentA.generation, parentB.generation) + 1;
 
   // Inherit stats
   const stats = inheritStats(parentA, parentB, bloodline, rarity);
 
-  // Calculate cost based on highest parent generation
-  const costGen = Math.max(parentA.generation, parentB.generation);
-  const cost = getBreedCost(costGen);
+  // Generate name
+  const name = generateName(bloodline);
 
-  // Generate offspring name
+  return {
+    id: `char_${++idCounter}`,
+    name,
+    bloodline,
+    rarity,
+    generation,
+    stats,
+    breedCount: 0,
+    parentIds: [parentA.id, parentB.id],
+  };
+}
+
+function generateName(bloodline: Bloodline): string {
   const bloodlinePrefixes: Record<Bloodline, string[]> = {
     Delver: ['Deep', 'Cave', 'Tunnel', 'Ore', 'Shaft'],
     Ironblood: ['Blade', 'Forge', 'Steel', 'Crimson', 'Molten'],
@@ -301,26 +330,7 @@ export function breed(parentA: Character, parentB: Character): BreedResult | { e
   const prefix =
     bloodlinePrefixes[bloodline][Math.floor(Math.random() * bloodlinePrefixes[bloodline].length)];
   const suffix = suffixes[Math.floor(Math.random() * suffixes.length)];
-  const name = `${prefix}${suffix}`;
-
-  const offspring: Character = {
-    id: `char_${++idCounter}`,
-    name,
-    bloodline,
-    rarity,
-    generation,
-    stats,
-    breedCount: 0,
-    parentIds: [parentA.id, parentB.id],
-  };
-
-  return {
-    offspring,
-    burnedParents: [parentA, parentB],
-    cost,
-    burn: cost.burn,
-    supplyChange: -1, // 2 burned — 1 born = net -1
-  };
+  return `${prefix}${suffix}`;
 }
 
 // ============================================================

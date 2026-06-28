@@ -74,13 +74,13 @@ export default function BreedSimulator() {
     // Stage 2: GACHA REVEAL after burn
     setTimeout(() => setStage('revealing'), 1500);
 
-    // Stage 3: Done — update pool (remove burned, add offspring)
+    // Stage 3: Done — update pool (remove burned, add 2 offsprings)
     setTimeout(() => {
       setPool((prev) => [
         ...prev.filter(
           (c) => c.id !== parentA.id && c.id !== parentB.id
         ),
-        res.offspring,
+        ...res.offsprings,
       ]);
       setParentA(null);
       setParentB(null);
@@ -127,8 +127,8 @@ export default function BreedSimulator() {
           </h2>
           <p className="text-lg text-dark-200 max-w-2xl mx-auto">
             🔥 <strong>Burn-to-Breed:</strong> both parents are <span className="text-red-400">permanently destroyed</span> 
-            to create one offspring. Net supply <span className="text-yellow-400">-1 per breed</span> — 
-            preventing NFT oversupply and stabilizing prices.
+            — 2 new offspring born with independent gacha rarity rolls.
+            <span className="text-blue-400"> Supply-neutral.</span>
           </p>
         </motion.div>
 
@@ -198,7 +198,7 @@ export default function BreedSimulator() {
                 <p className="text-xs text-red-400">25% Burned 🔥</p>
                 <div className="mt-2 pt-2 border-t border-dark-600">
                   <p className="text-xs text-red-400 font-bold">⚠ Both parents destroyed</p>
-                  <p className="text-[10px] text-dark-500">Supply: -1 (2 burned, 1 born)</p>
+                  <p className="text-[10px] text-dark-500">Supply: stable (2 burned → 2 born)</p>
                 </div>
               </div>
             )}
@@ -356,18 +356,31 @@ export default function BreedSimulator() {
                   >
                     <span className="text-red-400">-2 {result.burnedParents[0].name}, {result.burnedParents[1].name}</span>
                     <span className="text-dark-500">→</span>
-                    <span className="text-green-400 font-bold">+1 New Hero</span>
+                    <span className="text-green-400 font-bold">+2 New Heroes</span>
                     <span className="text-dark-500">=</span>
-                    <span className="text-yellow-400 font-bold">Supply -1</span>
+                    <span className="text-blue-400 font-bold">Net Zero</span>
                   </motion.div>
 
                   <div className="text-center mb-4">
-                    <span className="text-dark-400 text-sm">Offspring</span>
+                    <span className="text-dark-400 text-sm">Offsprings (2 born)</span>
                   </div>
-                  <HeroCard
-                    character={result.offspring}
-                    size="lg"
-                  />
+
+                  {/* Two offspring cards side by side */}
+                  <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                    {result.offsprings.map((kid, i) => (
+                      <motion.div
+                        key={kid.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 + i * 0.2 }}
+                      >
+                        <HeroCard
+                          character={kid}
+                          size="sm"
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
                   <div className="flex justify-center gap-4 mt-4">
                     <button
                       onClick={handleReset}
@@ -449,7 +462,7 @@ export default function BreedSimulator() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-dark-400">
             <div className="bg-dark-800/50 rounded-xl p-3">
               <span className="text-red-400 font-bold">🔥 Destructive</span>
-              <p>Both parent characters are PERMANENTLY BURNED. Supply decreases by 1 each breed. No character vomit.</p>
+              <p>Both parent characters are PERMANENTLY BURNED. 2 born per breed. Net supply stays stable — no inflation, no deflation.</p>
             </div>
             <div className="bg-dark-800/50 rounded-xl p-3">
               <span className="text-purple-400 font-bold">🎴 Gacha Rarity</span>
@@ -480,16 +493,14 @@ export default function BreedSimulator() {
                 <p className="text-yellow-400 font-bold text-lg">{pool.length}</p>
               </div>
               <div>
-                <p className="text-dark-500">Deflation</p>
-                <p className="text-green-400 font-bold text-lg">
-                  {pool.length < STARTING_POOL.length 
-                    ? `${(((STARTING_POOL.length - pool.length) / STARTING_POOL.length) * 100).toFixed(1)}%`
-                    : '0%'}
+                <p className="text-dark-500">Net Change</p>
+                <p className="text-blue-400 font-bold text-lg">
+                  {pool.length === STARTING_POOL.length ? 'Stable ✅' : pool.length > STARTING_POOL.length ? `+${pool.length - STARTING_POOL.length}` : `${pool.length - STARTING_POOL.length}`}
                 </p>
               </div>
             </div>
             <p className="text-[10px] text-dark-600 text-center mt-2">
-              Each breed permanently reduces supply by 1. Over time, scarcity drives value.
+              Supply-neutral: 2 parents burned → 2 offspring born. Population stays stable; rarity becomes the real grind.
             </p>
           </div>
         </motion.div>

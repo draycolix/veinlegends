@@ -2,36 +2,108 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" width="100%" height="100%">
   <defs>
     <radialGradient id="skin" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFE0D2"/>
-      <stop offset="100%" stop-color="#E2A78F"/>
+      <stop offset="0%" stop-color="#FFE0D2"/><stop offset="100%" stop-color="#D4A58A"/>
     </radialGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="5" flood-color="#000" flood-opacity="0.3"/>
-    </filter>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+    <radialGradient id="veinglow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFC107" stop-opacity="0.5"/><stop offset="100%" stop-color="#FFC107" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.35"/></filter>
+    <filter id="softglow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   </defs>
-  <rect width="100%" height="100%" rx="16" fill="#1a1a2e"/>
+  <rect width="100%" height="100%" rx="16" fill="#141420"/>
+  <ellipse cx="120" cy="262" rx="70" ry="10" fill="#000" opacity="0.3">
+    <animate attributeName="rx" values="70;72;70" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
 
-  <!-- CHARACTER -->
+  <!-- BREATHING body group -->
   <g filter="url(#shadow)">
-    <rect x="80" y="110" width="80" height="90" rx="20" fill="#6B705C"/>
-    <rect x="85" y="180" width="25" height="50" rx="10" fill="#37474F"/>
-    <rect x="130" y="180" width="25" height="50" rx="10" fill="#37474F"/>
-    <circle cx="120" cy="70" r="55" fill="url(#skin)"/>
-    <circle cx="100" cy="75" r="9" fill="#212121"/>
-    <circle cx="140" cy="75" r="9" fill="#212121"/>
-    <path d="M 60 65 A 60 60 0 0 1 180 65 Z" fill="#B0BEC5"/>
-    <circle cx="120" cy="40" r="15" fill="#FFC107" filter="url(#glow)"/>
-    <rect x="158" y="90" width="10" height="110" fill="#5D4037" transform="rotate(-15 158 90)"/>
-    <path d="M 108 80 Q 165 50 220 100 L 210 115 Q 165 80 120 100 Z" fill="#00E5FF" filter="url(#glow)"/>
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="3s" repeatCount="indefinite"/>
+
+    <!-- Legs -->
+    <rect x="88" y="195" width="24" height="45" rx="8" fill="#4E342E"/>
+    <rect x="128" y="195" width="24" height="45" rx="8" fill="#4E342E"/>
+    <rect x="84" y="232" width="32" height="12" rx="5" fill="#5D4037"/>
+    <rect x="124" y="232" width="32" height="12" rx="5" fill="#5D4037"/>
+
+    <!-- Belt -->
+    <rect x="84" y="190" width="72" height="8" rx="3" fill="#6D4C41"/>
+    <rect x="108" y="186" width="24" height="10" rx="3" fill="#8D6E63"/>
+
+    <!-- Torso - Miner Jacket -->
+    <rect x="80" y="112" width="80" height="82" rx="14" fill="#5D4037"/>
+    <path d="M 120 116 L 120 190" stroke="#6D4C41" stroke-width="1.5"/>
+    <rect x="95" y="130" width="20" height="20" rx="3" fill="#795548"/>
+    <rect x="125" y="130" width="20" height="20" rx="3" fill="#795548"/>
+    <circle cx="120" cy="160" r="5" fill="#FFC107" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.15;0.4" dur="3s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Arms -->
+    <rect x="60" y="120" width="22" height="50" rx="10" fill="#D4A58A"/>
+    <rect x="158" y="120" width="22" height="50" rx="10" fill="#D4A58A"/>
+    <rect x="56" y="155" width="28" height="18" rx="7" fill="#5D4037"/>
+    <rect x="156" y="155" width="28" height="18" rx="7" fill="#5D4037"/>
+
+    <!-- Head -->
+    <circle cx="120" cy="78" r="46" fill="url(#skin)"/>
+    <circle cx="98" cy="76" r="6" fill="#212121"/><circle cx="102" cy="74" r="2" fill="#FFF"/>
+    <circle cx="142" cy="76" r="6" fill="#212121"/><circle cx="146" cy="74" r="2" fill="#FFF"/>
+    <path d="M 108 90 Q 120 96 132 90" fill="none" stroke="#8D6E63" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M 74 55 Q 95 28 125 22 L 145 28 Q 165 45 168 65 L 162 68 L 155 50 Q 140 35 120 32 L 100 35 Q 85 48 78 60 L 72 58 Z" fill="#4E342E"/>
   </g>
 
-  <!-- Name -->
-  <text x="120" y="268" font-family="sans-serif" font-size="18" font-weight="bold" fill="#E0E0E0" text-anchor="middle">Delver</text>
+  <!-- HELM: Miner Cap with Lamp -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="3s" repeatCount="indefinite"/>
+    <path d="M 80 55 Q 120 42 160 55 L 158 75 Q 120 80 82 75 Z" fill="#FFC107"/>
+    <rect x="110" y="38" width="20" height="8" rx="3" fill="#424242"/>
+    <circle cx="120" cy="35" r="8" fill="#FFF9C4" filter="url(#softglow)">
+      <animate attributeName="r" values="8;6;8" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="120" cy="35" r="4" fill="#FFF">
+      <animate attributeName="r" values="4;3;4" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- WEAPON: Vein Pickaxe -->
+  <g transform="translate(168,110) rotate(25)">
+    <animateTransform attributeName="transform" type="translate" values="168,110;168,108;168,110" dur="2.5s" repeatCount="indefinite" additive="sum"/>
+    <animateTransform attributeName="transform" type="rotate" values="25;27;25" dur="2.5s" repeatCount="indefinite" additive="sum"/>
+    <rect x="-4" y="0" width="8" height="70" rx="3" fill="#5D4037"/>
+    <rect x="-5" y="20" width="10" height="6" rx="2" fill="#795548"/>
+    <rect x="-5" y="40" width="10" height="6" rx="2" fill="#795548"/>
+    <rect x="-18" y="-18" width="12" height="28" rx="3" fill="#9E9E9E"/>
+    <rect x="6" y="-18" width="12" height="28" rx="3" fill="#9E9E9E"/>
+    <circle cx="0" cy="-4" r="5" fill="#FFC107" filter="url(#softglow)">
+      <animate attributeName="r" values="5;8;5" dur="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- PARTICLES -->
+  <g>
+    <circle cx="45" cy="155" r="2.5" fill="#FFC107" filter="url(#softglow)">
+      <animate attributeName="cy" values="155;120;155" dur="2.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0;0.8" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="190" cy="140" r="2" fill="#00E5FF" filter="url(#softglow)">
+      <animate attributeName="cy" values="140;105;140" dur="2.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0;0.6" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="75" cy="190" r="1.5" fill="#FFE082">
+      <animate attributeName="cy" values="190;165;190" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0;0.5" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="160" cy="200" r="1.8" fill="#FFD54F">
+      <animate attributeName="cy" values="200;175;200" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0;0.4" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="105" cy="170" r="2" fill="#FFF" opacity="0.3">
+      <animate attributeName="cy" values="170;145;170" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <ellipse cx="120" cy="245" rx="55" ry="7" fill="#FFC107" opacity="0.06">
+    <animate attributeName="opacity" values="0.06;0.02;0.06" dur="1.5s" repeatCount="indefinite"/>
+  </ellipse>
+  <text x="120" y="275" font-family="sans-serif" font-size="16" font-weight="bold" fill="#E0E0E0" text-anchor="middle">Delver</text>
 </svg>

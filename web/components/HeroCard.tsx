@@ -23,6 +23,15 @@ export default function HeroCard({
 }: HeroCardProps) {
   const bl = BLOODLINES[character.bloodline];
   const rc = RARITY_CONFIG[character.rarity];
+
+  // Tier-exclusive effects
+  const tierEffects: Record<string, string> = {
+    Legendary: 'ring-1 ring-yellow-500/50 before:absolute before:inset-0 before:rounded-2xl before:animate-pulse before:shadow-[inset_0_0_30px_rgba(250,204,21,0.15)]',
+    Epic: 'ring-1 ring-purple-500/30',
+    Rare: 'ring-1 ring-blue-500/20',
+    Common: '',
+  };
+  const tierEffect = tierEffects[character.rarity] || '';
   const isLarge = size === 'lg';
 
   return (
@@ -32,6 +41,7 @@ export default function HeroCard({
       onClick={!disabled ? onClick : undefined}
       className={`
         relative overflow-hidden rounded-2xl transition-all cursor-pointer
+        ${tierEffect}
         ${selected ? 'ring-2 ring-yellow-400 shadow-xl shadow-yellow-400/30' : ''}
         ${disabled ? 'opacity-40 cursor-not-allowed grayscale' : 'hover:shadow-lg'}
         ${isLarge ? 'p-6' : 'p-2.5'}
