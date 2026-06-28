@@ -32,8 +32,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-dark-950 border border-amber-500/30 flex items-center justify-center font-display font-bold text-dark-900 text-lg group-hover:scale-110 transition-transform group-hover:border-amber-400/60 overflow-hidden">
-              <img src="/favicon.svg" alt="VeinLegends" className="w-6 h-6" />
+            <div className="w-9 h-9 rounded-lg bg-dark-900 border border-amber-500/40 flex items-center justify-center group-hover:scale-110 transition-transform group-hover:border-amber-400 group-hover:shadow-[0_0_12px_rgba(245,158,11,0.15)] overflow-hidden">
+              <img src="/favicon.svg" alt="VL" className="w-6 h-6" />
             </div>
             <span className="font-display font-bold text-lg hidden sm:block">
               Vein<span className="text-primary-400">Legends</span>
