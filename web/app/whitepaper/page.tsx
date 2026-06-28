@@ -195,18 +195,19 @@ export default function WhitepaperPage() {
               </p>
             </motion.div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {[
                 { label: 'MAU Target (Y1)', value: '100K', icon: '👥' },
                 { label: 'Token Burn Rate', value: '60%', icon: '🔥', sub: 'within 30 days of earning' },
                 { label: 'D30 Retention', value: '20%', icon: '📈', sub: 'vs 8% Web3 median' },
                 { label: 'Buyback Target', value: '$1M+', icon: '💵', sub: 'in-game revenue' },
+                { label: 'Governance Token', value: '$VLS', icon: '🏛', sub: '100M fixed supply · Dual-token model', highlight: true },
               ].map((stat, i) => (
                 <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                  className="glass rounded-2xl p-6 text-center">
+                  className={`glass rounded-2xl p-6 text-center ${(stat as any).highlight ? 'border border-purple-500/30 bg-purple-500/5' : ''}`}>
                   <p className="text-3xl mb-2">{stat.icon}</p>
-                  <p className="font-display font-bold text-3xl text-yellow-400">{stat.value}</p>
+                  <p className={`font-display font-bold text-3xl ${(stat as any).highlight ? 'text-purple-400' : 'text-yellow-400'}`}>{stat.value}</p>
                   <p className="text-sm text-dark-300 mt-1">{stat.label}</p>
                   {stat.sub && <p className="text-xs text-dark-500 mt-1">{stat.sub}</p>}
                 </motion.div>
