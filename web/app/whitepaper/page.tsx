@@ -12,12 +12,13 @@ const SECTIONS = [
   { id: 'problem', label: 'Problem', num: '2', icon: '⚠' },
   { id: 'solution', label: 'Solution', num: '3', icon: '💡' },
   { id: 'mechanics', label: 'Game Mechanics', num: '4', icon: '🎮' },
-  { id: 'tokenomics', label: 'Token Economy', num: '5', icon: '💰' },
-  { id: 'tech', label: 'Technical Architecture', num: '6', icon: '🔧' },
-  { id: 'roadmap', label: 'Roadmap', num: '7', icon: '🗺' },
-  { id: 'team', label: 'Team', num: '8', icon: '👤' },
-  { id: 'risk', label: 'Risk & Mitigation', num: '9', icon: '🛡' },
-  { id: 'conclusion', label: 'Conclusion', num: '10', icon: '🎯' },
+  { id: 'tokenomics', label: '$VEIN Economy', num: '5', icon: '💰' },
+  { id: 'vls', label: '$VLS Governance', num: '6', icon: '🏛' },
+  { id: 'tech', label: 'Technical Architecture', num: '7', icon: '🔧' },
+  { id: 'roadmap', label: 'Roadmap', num: '8', icon: '🗺' },
+  { id: 'team', label: 'Team', num: '9', icon: '👤' },
+  { id: 'risk', label: 'Risk & Mitigation', num: '10', icon: '🛡' },
+  { id: 'conclusion', label: 'Conclusion', num: '11', icon: '🎯' },
 ];
 
 // ============================================================
@@ -394,7 +395,125 @@ export default function WhitepaperPage() {
             </div>
           </section>
 
-          {/* ===== 6. TECH ===== */}
+          {/* ===== 6. $VLS GOVERNANCE TOKEN ===== */}
+          <section id="vls">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
+              <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">$VLS — Governance Token</h2>
+              <p className="text-dark-300 text-lg">Dual-token model. $VEIN untuk utility, $VLS untuk value capture & governance.</p>
+            </motion.div>
+
+            {/* VLS vs VEIN comparison */}
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              <div className="glass rounded-2xl p-6 border border-yellow-500/20">
+                <h3 className="font-display font-bold text-xl mb-4 text-yellow-400">💰 $VEIN</h3>
+                <div className="space-y-3 text-sm">
+                  {[
+                    ['Type', 'Utility token'],
+                    ['Supply', 'Unlimited (terkontrol sink)'],
+                    ['Didapat dari', 'Mining, battle rewards, quests'],
+                    ['Digunakan untuk', 'Breed, gacha, upgrade, tournament entry'],
+                    ['Analogi', 'SLP (Axie Infinity)'],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between"><span className="text-dark-400">{k}</span><span>{v}</span></div>
+                  ))}
+                </div>
+              </div>
+              <div className="glass rounded-2xl p-6 border border-purple-500/20">
+                <h3 className="font-display font-bold text-xl mb-4 text-purple-400">🏛 $VLS</h3>
+                <div className="space-y-3 text-sm">
+                  {[
+                    ['Type', 'Governance + Value capture'],
+                    ['Supply', 'Fixed 100,000,000'],
+                    ['Didapat dari', 'Staking, LP provision, airdrop'],
+                    ['Digunakan untuk', 'Voting, revenue share, premium access'],
+                    ['Analogi', 'AXS (Axie Infinity)'],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between"><span className="text-dark-400">{k}</span><span className="text-purple-300">{v}</span></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Why Dual Token */}
+            <div className="glass rounded-2xl p-6 mb-8">
+              <h3 className="font-display font-bold text-lg mb-4">Kenapa Dual Token?</h3>
+              <div className="grid sm:grid-cols-3 gap-4">
+                {[
+                  { title: 'Pisah Utility & Speculation', desc: '$VEIN untuk game loop harian. $VLS untuk long-term value. Player casual gak perlu mikirin harga token.', icon: '🔀' },
+                  { title: 'Cegah Inflasi Merusak Governance', desc: 'Kalau governance pakai token inflasi, voting power ter-dilusi. $VLS fixed supply = voting power stabil.', icon: '🛡' },
+                  { title: 'Revenue Share untuk Holder', desc: 'Staker $VLS dapat share dari breeding fee, gacha fee, dan marketplace fee — insentif hold jangka panjang.', icon: '💵' },
+                ].map((item, i) => (
+                  <div key={i} className="bg-dark-800/50 rounded-xl p-4">
+                    <p className="text-2xl mb-2">{item.icon}</p>
+                    <p className="font-bold text-sm mb-1">{item.title}</p>
+                    <p className="text-xs text-dark-400">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* VLS Distribution */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="glass rounded-2xl p-6">
+                <h3 className="font-display font-bold text-lg mb-4">Distribusi $VLS</h3>
+                <div className="space-y-3">
+                  {[
+                    { label: 'Public Sale (IDO)', pct: 15, color: '#f59e0b', desc: 'Jupiter Launchpad / Raydium' },
+                    { label: 'Staking Rewards', pct: 30, color: '#8b5cf6', desc: '4yr linear emission' },
+                    { label: 'Ecosystem Fund', pct: 20, color: '#06b6d4', desc: 'Grants, partnerships, tournaments' },
+                    { label: 'Team & Advisors', pct: 15, color: '#ef4444', desc: '2yr vest, 6mo cliff' },
+                    { label: 'Liquidity Pool', pct: 10, color: '#22c55e', desc: '$VLS/SOL + $VLS/$VEIN pairs' },
+                    { label: 'Airdrop Reserve', pct: 10, color: '#ec4899', desc: 'Testnet participants + community' },
+                  ].map((d, i) => (
+                    <motion.div key={d.label} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium">{d.label}</span>
+                        <span className="text-sm font-bold" style={{ color: d.color }}>{d.pct}%</span>
+                      </div>
+                      <div className="h-2 bg-dark-700 rounded-full overflow-hidden">
+                        <motion.div className="h-full rounded-full" style={{ backgroundColor: d.color }}
+                          initial={{ width: 0 }} whileInView={{ width: `${d.pct}%` }} viewport={{ once: true }}
+                          transition={{ duration: 1, delay: i * 0.1 }} />
+                      </div>
+                      <p className="text-xs text-dark-500 mt-0.5">{d.desc}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="glass rounded-2xl p-6">
+                <h3 className="font-display font-bold text-lg mb-4">Value Capture</h3>
+                <div className="space-y-3">
+                  {[
+                    { label: 'Staking Rewards', value: '20% breeding fee + 10% gacha fee', icon: '🏦', color: 'text-green-400' },
+                    { label: 'Governance Voting', value: 'Economic parameters, new features, treasury', icon: '🗳', color: 'text-purple-400' },
+                    { label: 'Premium Access', value: 'Early tournament entry, exclusive parts, airdrop multiplier', icon: '⭐', color: 'text-yellow-400' },
+                    { label: 'Revenue Share', value: '30% marketplace fee → distributed to stakers', icon: '💎', color: 'text-cyan-400' },
+                    { label: 'Deflationary Pressure', value: 'Buyback & burn with 10% protocol revenue', icon: '🔥', color: 'text-red-400' },
+                  ].map((item, i) => (
+                    <div key={i} className="bg-dark-800/30 rounded-xl p-4 flex items-start gap-3">
+                      <span className="text-xl">{item.icon}</span>
+                      <div>
+                        <p className="font-bold text-sm">{item.label}</p>
+                        <p className={`text-sm mt-0.5 ${item.color}`}>{item.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Token Sale */}
+            <div className="glass rounded-2xl p-6 text-center border border-purple-500/20">
+              <p className="text-sm text-dark-400">$VLS Token Sale Target</p>
+              <p className="font-display font-bold text-4xl text-purple-400 mt-1">$200K–$500K</p>
+              <p className="text-sm text-dark-400 mt-1">15M $VLS (15% supply) via IDO</p>
+              <p className="text-xs text-dark-500 mt-2">Price: $0.02–$0.05 | Vesting: 20% TGE + 80% linear 12 bulan</p>
+            </div>
+          </section>
+
+          {/* ===== 7. TECH ===== */}
           <section id="tech">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
               <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">Technical Architecture</h2>
