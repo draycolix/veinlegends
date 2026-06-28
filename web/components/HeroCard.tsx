@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import type { Character } from '@/lib/characters';
 import { BLOODLINES, RARITY_CONFIG } from '@/lib/characters';
+import { getWeapon, RARITY_WEAPON_GLOW } from '@/lib/weapons';
 
 interface HeroCardProps {
   character: Character;
@@ -23,6 +24,8 @@ export default function HeroCard({
 }: HeroCardProps) {
   const bl = BLOODLINES[character.bloodline];
   const rc = RARITY_CONFIG[character.rarity];
+  const weapon = getWeapon(character.bloodline, character.rarity);
+  const weaponGlow = RARITY_WEAPON_GLOW[character.rarity];
 
   // Tier-exclusive effects
   const tierEffects: Record<string, string> = {
@@ -56,18 +59,37 @@ export default function HeroCard({
         }}
       />
 
-      {/* Character Art SVG */}
+      {/* Character Art SVG + Weapon Overlay */}
       <div className={`relative flex justify-center ${isLarge ? 'mb-4' : 'mb-2'}`}>
-        <div className={`flex items-center justify-center rounded-xl overflow-hidden bg-dark-900/80 border border-dark-600 ${isLarge ? 'w-full h-64' : 'w-full h-28'}`}>
+        <div className={`relative flex items-center justify-center rounded-xl overflow-hidden bg-dark-900/80 border border-dark-600 ${isLarge ? 'w-full h-64' : 'w-full h-28'}`}>
+          {/* Character SVG (background) */}
           <img
             src={`/characters/${character.bloodline.toLowerCase()}.svg`}
             alt={character.bloodline}
             className={`object-contain ${isLarge ? 'w-full h-full scale-110' : 'w-full h-full scale-100'}`}
           />
+
+          {/* Weapon overlay SVG */}
+          <div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            style={{ filter: weaponGlow }}
+          >
+            <svg
+              viewBox="0 0 240 240"
+              className={`${isLarge ? 'w-full h-full' : 'w-full h-full'}`}
+              style={{ transform: `scale(${weapon.scale})` }}
+              dangerouslySetInnerHTML={{ __html: weapon.svgGroup }}
+            />
+          </div>
+
+          {/* Legendary shimmer */}
+          {character.rarity === 'Legendary' && (
+            <div className="absolute inset-0 bg-gradient-to-t from-yellow-500/10 via-transparent to-transparent pointer-events-none" />
+          )}
         </div>
       </div>
 
-      {/* Header — Bloodline icon + Name + Rarity badge */}
+      {/* Header — Bloodline icon + Name + Rarity badge + Weapon name */}
       <div className={`relative flex items-center gap-2 ${isLarge ? 'mb-3' : 'mb-1.5'}`}>
         <span className={isLarge ? 'text-2xl' : 'text-lg'}>{bl.icon}</span>
         <div className="flex-1 min-w-0">
@@ -86,6 +108,11 @@ export default function HeroCard({
               {character.title}
             </p>
           )}
+          {/* Weapon name */}
+          <p className={`truncate ${isLarge ? 'text-xs' : 'text-[9px]'}`}
+             style={{ color: weapon.glowColor }}>
+            {weapon.icon || '⚔'} {weapon.name}
+          </p>
         </div>
         <span className={`text-xs px-1.5 py-0.5 rounded-full font-mono ${rc.textColor} bg-dark-900/80 ${isLarge ? '' : 'text-[10px] px-1'}`}>
           {rc.label}
@@ -143,6 +170,14 @@ export default function HeroCard({
               <p className="text-dark-200 leading-relaxed">{character.signature}</p>
             </div>
           )}
+
+          {/* Weapon detail (large mode only) */}
+          <div className="bg-dark-900/50 rounded-lg p-3 border border-dark-600">
+            <p className="text-dark-500 font-bold mb-1" style={{ color: weapon.glowColor }}>
+              ⚔ Weapon: {weapon.name}
+            </p>
+            <p className="text-dark-400 text-xs">Rarity: {weapon.rarity} · Scale: ×{weapon.scale}</p>
+          </div>
         </div>
       )}
 

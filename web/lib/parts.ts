@@ -6,6 +6,12 @@
 export type Rarity = 'Common' | 'Rare' | 'Epic' | 'Legendary';
 export type PartSlot = 'head' | 'body' | 'weapon' | 'accessory' | 'aura';
 export type Bloodline = 'Delver' | 'Ironblood' | 'Forgeborn' | 'Shadowvein' | 'Stonewarden' | 'Veinbender';
+export type BloodlineParts = Record<PartSlot, PartDef[]>;
+
+export interface BloodlinePartSet {
+  bloodline: Bloodline;
+  slots: Partial<Record<PartSlot, PartDef[]>>;
+}
 
 export interface PartDef {
   id: string;
@@ -112,7 +118,7 @@ export const IRONBLOOD_PARTS: Record<PartSlot, PartDef[]> = {
 // FORGEBORN PARTS — Fire, hammer, forge elements
 // ============================================================
 
-const FORGEBORN_PARTS: BloodlineParts = {
+const FORGEBORN_PARTS: BloodlinePartSet = {
   bloodline: 'Forgeborn',
   slots: {
     head: [
@@ -146,7 +152,7 @@ const FORGEBORN_PARTS: BloodlineParts = {
 // SHADOWVEIN PARTS — Stealth, darkness, blades
 // ============================================================
 
-const SHADOWVEIN_PARTS: BloodlineParts = {
+const SHADOWVEIN_PARTS: BloodlinePartSet = {
   bloodline: 'Shadowvein',
   slots: {
     head: [
@@ -180,7 +186,7 @@ const SHADOWVEIN_PARTS: BloodlineParts = {
 // STONEWARDEN PARTS — Shield, stone, defense
 // ============================================================
 
-const STONEWARDEN_PARTS: BloodlineParts = {
+const STONEWARDEN_PARTS: BloodlinePartSet = {
   bloodline: 'Stonewarden',
   slots: {
     head: [
@@ -199,12 +205,12 @@ const STONEWARDEN_PARTS: BloodlineParts = {
       { id: 'stone_wpn_c', slot: 'weapon', name: 'Wooden Shield', rarity: 'Common', svgZIndex: 6, svgGroup: '<ellipse cx="160" cy="150" rx="25" ry="30" fill="#5D4037"/><ellipse cx="160" cy="150" rx="15" ry="18" fill="#795548"/>', upgradeable: true },
       { id: 'stone_wpn_r', slot: 'weapon', name: 'Iron Bulwark', rarity: 'Rare', svgZIndex: 6, svgGroup: '<ellipse cx="160" cy="150" rx="28" ry="33" fill="#546E7A"/><ellipse cx="160" cy="150" rx="18" ry="20" fill="#78909C"/><circle cx="160" cy="150" r="8" fill="#00BCD4" opacity="0.4"/>', upgradeable: true },
       { id: 'stone_wpn_e', slot: 'weapon', name: 'Crystal Aegis', rarity: 'Epic', svgZIndex: 6, svgGroup: '<ellipse cx="160" cy="148" rx="30" ry="36" fill="#37474F"/><ellipse cx="160" cy="148" rx="20" ry="24" fill="#00BCD4" opacity="0.4"/><circle cx="160" cy="148" r="10" fill="#00E5FF" opacity="0.3" filter="url(#glow)"><animate attributeName="r" values="10;14;10" dur="2s" repeatCount="indefinite"/></circle>', upgradeable: true },
-      { id: 'stone_wpn_l', slot: 'weapon', name: 'Bastion\\'s Wall', rarity: 'Legendary', svgZIndex: 6, svgGroup: '<ellipse cx="160" cy="148" rx="34" ry="40" fill="#1C2833"/><ellipse cx="160" cy="148" rx="24" ry="28" fill="#00BCD4" opacity="0.3"/><circle cx="160" cy="148" r="12" fill="#00E5FF" opacity="0.4" filter="url(#glow)"><animate attributeName="r" values="12;17;12" dur="1.5s" repeatCount="indefinite"/></circle><path d="M 145 148 L 175 148 M 160 133 L 160 163" stroke="#00E5FF" stroke-width="0.8" opacity="0.5"/>', upgradeable: false },
+      { id: 'stone_wpn_l', slot: 'weapon', name: "Bastion's Wall", rarity: 'Legendary', svgZIndex: 6, svgGroup: '<ellipse cx="160" cy="148" rx="34" ry="40" fill="#1C2833"/><ellipse cx="160" cy="148" rx="24" ry="28" fill="#00BCD4" opacity="0.3"/><circle cx="160" cy="148" r="12" fill="#00E5FF" opacity="0.4" filter="url(#glow)"><animate attributeName="r" values="12;17;12" dur="1.5s" repeatCount="indefinite"/></circle><path d="M 145 148 L 175 148 M 160 133 L 160 163" stroke="#00E5FF" stroke-width="0.8" opacity="0.5"/>', upgradeable: false },
     ],
     aura: [
       { id: 'stone_aura_c', slot: 'aura', name: 'Dust', rarity: 'Common', svgZIndex: 2, svgGroup: '<circle cx="100" cy="200" r="2" fill="#90A4AE" opacity="0.3"><animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite"/></circle>', upgradeable: true },
       { id: 'stone_aura_r', slot: 'aura', name: 'Stone Skin', rarity: 'Rare', svgZIndex: 2, svgGroup: '<ellipse cx="120" cy="200" rx="40" ry="8" fill="#78909C" opacity="0.12"><animate attributeName="opacity" values="0.12;0.03;0.12" dur="2s" repeatCount="indefinite"/></ellipse>', upgradeable: true },
-      { id: 'stone_aura_e', slot: 'aura', name: 'Guardian\\'s Resolve', rarity: 'Epic', svgZIndex: 7, svgGroup: '<ellipse cx="120" cy="200" rx="50" ry="10" fill="#00BCD4" opacity="0.15"><animate attributeName="opacity" values="0.15;0.04;0.15" dur="1.5s" repeatCount="indefinite"/></ellipse><path d="M 80 195 L 75 198 M 160 195 L 165 198" stroke="#00E5FF" stroke-width="0.8" opacity="0.4"/>', upgradeable: true },
+      { id: 'stone_aura_e', slot: 'aura', name: "Guardian's Resolve", rarity: 'Epic', svgZIndex: 7, svgGroup: '<ellipse cx="120" cy="200" rx="50" ry="10" fill="#00BCD4" opacity="0.15"><animate attributeName="opacity" values="0.15;0.04;0.15" dur="1.5s" repeatCount="indefinite"/></ellipse><path d="M 80 195 L 75 198 M 160 195 L 165 198" stroke="#00E5FF" stroke-width="0.8" opacity="0.4"/>', upgradeable: true },
       { id: 'stone_aura_l', slot: 'aura', name: 'Indomitable', rarity: 'Legendary', svgZIndex: 7, svgGroup: '<circle cx="120" cy="150" r="65" fill="none" stroke="#00BCD4" stroke-width="0.6" opacity="0.25"><animate attributeName="r" values="65;75;65" dur="1.5s" repeatCount="indefinite"/></circle><circle cx="120" cy="150" r="85" fill="none" stroke="#00E5FF" stroke-width="0.4" opacity="0.15"><animate attributeName="r" values="85;100;85" dur="3s" repeatCount="indefinite"/></circle>', upgradeable: false },
     ],
   },
@@ -214,7 +220,7 @@ const STONEWARDEN_PARTS: BloodlineParts = {
 // VEINBENDER PARTS — Crystal, alchemy, magic
 // ============================================================
 
-const VEINBENDER_PARTS: BloodlineParts = {
+const VEINBENDER_PARTS: BloodlinePartSet = {
   bloodline: 'Veinbender',
   slots: {
     head: [
@@ -245,7 +251,7 @@ const VEINBENDER_PARTS: BloodlineParts = {
 };
 
 // ALL BLOODLINES
-export const ALL_BLOODLINE_PARTS: Record<string, BloodlineParts> = {
+export const ALL_BLOODLINE_PARTS: Record<string, BloodlineParts | BloodlinePartSet> = {
   Delver: DELVER_PARTS,
   Ironblood: IRONBLOOD_PARTS,
   Forgeborn: FORGEBORN_PARTS,

@@ -9,6 +9,8 @@ import Gameplay from '@/components/Gameplay';
 import Roadmap from '@/components/Roadmap';
 import Characters from '@/components/Characters';
 import BreedSimulator from '@/components/BreedSimulator';
+import BattleSimulator from '@/components/BattleSimulator';
+import MiningDashboard from '@/components/MiningDashboard';
 import Lore from '@/components/Lore';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
@@ -44,9 +46,11 @@ export default function LandingPage() {
         <Hero />
         <Stats />
         <Lore />
+        <MiningDashboard />
         <Gameplay />
         <Characters />
         <BreedSimulator />
+        <BattleSimulator />
         <Tokenomics />
         <Roadmap />
         <CTA />
