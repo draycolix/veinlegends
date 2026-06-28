@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import WalletButton from '@/components/WalletButton';
 import { useWalletConnection } from '@/lib/wallet-provider';
 import { connection, network, PROGRAM_ID } from '@/lib/program';
 import { motion } from 'framer-motion';
@@ -101,7 +101,7 @@ function DashboardInner() {
           <p className="text-dark-200 mb-8">
             Connect your Solana wallet to initiate the VeinLegends program, mint characters, and battle for $VEIN.
           </p>
-          <WalletMultiButton className="!bg-gradient-to-r !from-primary-500 !to-primary-600 !text-dark-900 !font-bold !rounded-xl !px-8 !py-4" />
+          <WalletButton />
           <p className="text-xs text-dark-400 mt-4">
             Devnet preview. No real funds required.
           </p>
@@ -123,7 +123,7 @@ function DashboardInner() {
               <span className="text-primary-400">{network}</span>
             </p>
           </div>
-          <WalletMultiButton />
+          <WalletButton />
         </div>
 
         {/* Init button — shown if program not initialized */}

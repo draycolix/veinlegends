@@ -5,9 +5,10 @@ import { WalletContextProvider } from '@/lib/wallet-provider';
 export const metadata: Metadata = {
   title: 'VeinLegends ($VEIN) — Mine. Build. Battle. Earn.',
   description:
-    'A Web3 idle RPG on Solana. Mine the $VEIN token with skill, burn to mint legendary character NFTs, and battle other players for token prizes.',
+    'A Web3 idle RPG on Solana. Mine the $VEIN utility token, burn to mint legendary character NFTs, and battle for token prizes.',
   keywords: ['Solana', 'Web3', 'Game', 'NFT', 'Mining', 'Token', '$VEIN', 'VeinLegends'],
   authors: [{ name: 'VeinLegends' }],
+  icons: { icon: '/favicon.svg', shortcut: '/favicon.svg', apple: '/favicon.svg' },
   openGraph: {
     title: 'VeinLegends ($VEIN)',
     description: 'A Web3 idle RPG on Solana. Mine. Build. Battle. Earn.',
