@@ -12,7 +12,6 @@ const navLinks = [
   { label: 'Arena', href: '/arena' },
   { label: 'Swap', href: '/swap' },
   { label: 'Market', href: '/market' },
-  { label: 'Roadmap', href: '/roadmap' },
   { label: 'Whitepaper', href: '/whitepaper' },
 ];
 

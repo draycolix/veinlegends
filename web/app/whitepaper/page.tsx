@@ -155,6 +155,13 @@ export default function WhitepaperPage() {
         </AnimatePresence>
       </div>
 
+      {/* ===== BACK BUTTON ===== */}
+      <div className="fixed top-20 left-4 z-50 xl:left-72">
+        <Link href="/" className="glass px-4 py-2.5 rounded-xl text-sm font-bold text-dark-200 hover:text-white hover:bg-dark-800 transition-all flex items-center gap-2">
+          <span>←</span> <span className="hidden sm:inline">VeinLegends</span>
+        </Link>
+      </div>
+
       {/* ===== MAIN CONTENT ===== */}
       <main className="xl:ml-64">
         {/* HERO */}
