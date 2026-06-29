@@ -6,7 +6,10 @@ import { motion } from 'framer-motion';
 import WalletButton from './WalletButton';
 
 const navLinks = [
+  { label: 'Mine', href: '/#mining' },
+  { label: 'Breed', href: '/#breed' },
   { label: 'Arena', href: '/arena' },
+  { label: 'Roadmap', href: '/#roadmap' },
   { label: 'Whitepaper', href: '/whitepaper' },
 ];
 
@@ -19,6 +22,21 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  function handleNav(href: string) {
+    setMobileMenu(false);
+    if (href.startsWith('/#')) {
+      const id = href.slice(2);
+      // If already on homepage, smooth scroll
+      if (window.location.pathname === '/') {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      // Navigate to homepage with hash
+      window.location.href = href;
+      return;
+    }
+  }
 
   return (
     <motion.nav
@@ -45,7 +63,8 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-dark-200 hover:text-primary-400 transition-colors"
+                onClick={(e) => { e.preventDefault(); handleNav(link.href); }}
+                className="text-sm font-medium text-dark-200 hover:text-primary-400 transition-colors cursor-pointer"
               >
                 {link.label}
               </a>
@@ -102,8 +121,8 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileMenu(false)}
-                className="block px-3 py-2 text-dark-200 hover:text-primary-400 hover:bg-dark-800 rounded-md"
+                onClick={(e) => { e.preventDefault(); handleNav(link.href); }}
+                className="block px-3 py-2 text-dark-200 hover:text-primary-400 hover:bg-dark-800 rounded-md cursor-pointer"
               >
                 {link.label}
               </a>
