@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import WalletButton from './WalletButton';
 
@@ -18,12 +19,21 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  function handleHome(e: React.MouseEvent) {
+    if (pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setMobileMenu(false);
+    }
+  }
 
   return (
     <motion.nav
@@ -51,6 +61,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={link.href === '/' ? handleHome : undefined}
                 className="text-sm font-medium text-dark-200 hover:text-primary-400 transition-colors"
               >
                 {link.label}
@@ -108,7 +119,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileMenu(false)}
+                onClick={link.href === '/' ? handleHome : () => setMobileMenu(false)}
                 className="block px-3 py-2 text-dark-200 hover:text-primary-400 hover:bg-dark-800 rounded-md"
               >
                 {link.label}
