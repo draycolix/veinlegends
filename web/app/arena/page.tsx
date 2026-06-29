@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import BattleContent from '@/components/BattleContent';
 import TournamentContent from '@/components/TournamentContent';
@@ -27,7 +26,6 @@ export default function ArenaPage() {
       <div className="sticky top-16 z-30 bg-dark-900/95 backdrop-blur border-b border-dark-700">
         <div className="max-w-7xl mx-auto px-4 pt-6 pb-4">
           <div className="flex items-center gap-4 mb-4">
-            <Link href="/" className="text-dark-400 hover:text-dark-200 text-sm">← Home</Link>
             <h1 className="font-display text-2xl md:text-3xl font-bold">🎮 Arena</h1>
           </div>
           <div className="flex gap-2 overflow-x-auto">

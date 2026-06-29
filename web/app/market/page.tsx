@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 
@@ -144,8 +143,7 @@ export default function MarketPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <Link href="/" className="text-dark-400 hover:text-dark-200 text-sm">← Home</Link>
-            <h1 className="font-display text-3xl font-bold mt-2">Market</h1>
+            <h1 className="font-display text-3xl font-bold">Market</h1>
             <p className="text-dark-400 text-sm mt-1">
               Buy VeinLegends NFTs with <span className="text-purple-400 font-bold">$VLS</span> token
             </p>
