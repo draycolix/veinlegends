@@ -11,6 +11,8 @@ const phases = [
       'Smart contract scaffolding',
       'Web app foundation',
       'Token creation on devnet',
+      '⛏ Idle mining engine',
+      '🧬 Character breeding system',
       'Landing page live',
       'Internal alpha (10 testers)',
     ],
@@ -104,11 +106,13 @@ export default function Roadmap() {
             Roadmap
           </div>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            6 months to <span className="text-shimmer">mainnet</span>
+            <span className="text-yellow-400">Mine</span> →{' '}
+            <span className="text-purple-400">Breed</span> →{' '}
+            <span className="text-shimmer">Battle</span>
           </h2>
           <p className="text-lg text-dark-200 max-w-2xl mx-auto">
-            Aggressive but achievable timeline. Product first, marketing second, then scale.
-            No fluff, no false promises.
+            Idle mining, character breeding, competitive PvP — 6 months to mainnet.
+            Product first, marketing second, then scale.
           </p>
         </motion.div>
 
