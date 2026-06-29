@@ -145,7 +145,7 @@ export default function MarketPage() {
           <div>
             <h1 className="font-display text-3xl font-bold">Market</h1>
             <p className="text-dark-400 text-sm mt-1">
-              Buy VeinLegends NFTs with <span className="text-purple-400 font-bold">$VLS</span> token
+              Buy VeinLegends NFTs with <span className="text-amber-400 font-bold">$VEIN</span> token
             </p>
           </div>
           <span className="text-xs text-dark-400 bg-dark-800 px-3 py-1 rounded-full border border-dark-700">Devnet</span>
@@ -208,7 +208,7 @@ export default function MarketPage() {
                 <div className="flex items-center justify-between mt-3 pt-3 border-t border-dark-700/50">
                   <div>
                     <p className="text-xs text-dark-400">Price</p>
-                    <p className="font-bold text-sm text-purple-400">{nft.price.toLocaleString()} VLS</p>
+                    <p className="font-bold text-sm text-amber-400">{nft.price.toLocaleString()} VEIN</p>
                   </div>
                   <button className="px-4 py-1.5 bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 rounded-lg text-xs font-bold transition-colors border border-purple-500/20">
                     Buy
@@ -229,12 +229,12 @@ export default function MarketPage() {
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-3xl">🚀</span>
                 <div>
-                  <h2 className="font-display text-xl font-bold text-purple-400">Initial Character Offering</h2>
-                  <p className="text-sm text-dark-300">Exclusive pre-launch packs — only purchasable with $VLS token</p>
+                  <h2 className="font-display text-xl font-bold text-amber-400">Initial Character Offering</h2>
+                  <p className="text-sm text-dark-300">Exclusive pre-launch packs — only purchasable with $VEIN token</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-4 text-xs text-dark-400">
-                <span>🔒 Payment: <strong className="text-purple-400">$VLS only</strong></span>
+                <span>🔒 Payment: <strong className="text-amber-400">$VEIN only</strong></span>
                 <span>⏰ Sale ends: <strong>Q4 2026 mainnet</strong></span>
                 <span>💎 All packs include bonus $VEIN</span>
               </div>
@@ -262,7 +262,7 @@ export default function MarketPage() {
                     <div className="mb-2">
                       <div className="flex justify-between text-xs mb-1">
                         <span className="text-dark-400">{pack.sold} / {pack.supply} sold</span>
-                        <span className="text-purple-400 font-bold">{Math.round((pack.sold / pack.supply) * 100)}%</span>
+                        <span className="text-amber-400 font-bold">{Math.round((pack.sold / pack.supply) * 100)}%</span>
                       </div>
                       <div className="w-full h-2 bg-dark-800 rounded-full overflow-hidden">
                         <div
@@ -275,8 +275,8 @@ export default function MarketPage() {
 
                   <div className="text-right shrink-0">
                     <p className="text-xs text-dark-400 mb-1">Price</p>
-                    <p className="font-display font-bold text-2xl text-purple-400">{pack.price.toLocaleString()} VLS</p>
-                    <button className="mt-3 px-6 py-2.5 bg-gradient-to-r from-purple-500 to-violet-600 text-white font-bold rounded-xl text-sm hover:from-purple-400 hover:to-violet-500 transition-all shadow-lg shadow-purple-500/20">
+                    <p className="font-display font-bold text-2xl text-amber-400">{pack.price.toLocaleString()} VEIN</p>
+                    <button className="mt-3 px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-dark-950 font-bold rounded-xl text-sm hover:from-amber-400 hover:to-orange-500 transition-all shadow-lg shadow-amber-500/20">
                       Buy Pack
                     </button>
                   </div>
@@ -285,7 +285,7 @@ export default function MarketPage() {
             ))}
 
             <p className="text-center text-xs text-dark-500 mt-6">
-              Simulated ICO — no real tokens exchanged. Mainnet ICO uses real $VLS.
+              Simulated ICO — no real tokens exchanged. Mainnet ICO uses real $VEIN.
             </p>
           </div>
         )}
@@ -324,7 +324,7 @@ export default function MarketPage() {
                       <div className="bg-dark-800/50 rounded-xl p-4 mb-4">
                         <div className="flex justify-between items-center">
                           <span className="text-sm text-dark-300">Total price</span>
-                          <span className="font-display font-bold text-xl text-purple-400">{nft.price.toLocaleString()} VLS</span>
+                          <span className="font-display font-bold text-xl text-amber-400">{nft.price.toLocaleString()} VEIN</span>
                         </div>
                       </div>
                       <button className="w-full py-3 bg-gradient-to-r from-purple-500 to-violet-600 text-white font-bold rounded-xl hover:from-purple-400 hover:to-violet-500 transition-all shadow-lg shadow-purple-500/20">
