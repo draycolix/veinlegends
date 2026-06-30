@@ -10,9 +10,9 @@ import {
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
-
-// CSS import is side-effect only — safe in client-only context
-import '@solana/wallet-adapter-react-ui/styles.css';
+import { BackpackWalletAdapter } from '@solana/wallet-adapter-backpack';
+import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 
 const NETWORK = (process.env.NEXT_PUBLIC_NETWORK === 'mainnet-beta'
   ? 'mainnet-beta'
@@ -33,7 +33,17 @@ export default function WalletProviderInner({
   }, []);
 
   const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+      new BackpackWalletAdapter(),
+      new WalletConnectWalletAdapter({
+        network: NETWORK === 'mainnet-beta' ? WalletAdapterNetwork.Mainnet : WalletAdapterNetwork.Devnet,
+        options: {
+          projectId: '00000000000000000000000000000000',
+        },
+      }),
+    ],
     []
   );
 

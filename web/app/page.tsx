@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Tokenomics from '@/components/Tokenomics';
@@ -11,9 +10,7 @@ import Characters from '@/components/Characters';
 import Lore from '@/components/Lore';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
-
-// Lazy load heavy components
-const Stats = dynamic(() => import('@/components/Stats'), { ssr: false });
+import Stats from '@/components/Stats';
 
 export default function LandingPage() {
   const [mounted, setMounted] = useState(false);
